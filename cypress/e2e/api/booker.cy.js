@@ -36,7 +36,7 @@ describe("Booker", () => {
                 Cookie: `token=${token}`
             },
             body: booking
-        }).then(({ status}) => {
+        }).then(({ status }) => {
             expect(status).to.eq(201)
         })
     })
