@@ -6,7 +6,7 @@ let id;
 
 describe("Booker", () => {
 
-    it('Create Token', () => {
+    before('Create Token', () => {
         cy.request({
             method: 'POST',
             url: '/auth',
