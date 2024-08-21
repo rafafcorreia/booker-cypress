@@ -1,20 +1,10 @@
-import login from '../../fixtures/login.json'
 import booking from '../../fixtures/booking.json'
-
-let token;
-let id;
 
 describe("Booker", () => {
 
     before('Create Token', () => {
-        cy.request({
-            method: 'POST',
-            url: '/auth',
-            body: login
-        }).then(({ status, body }) => {
-            expect(status).to.eq(200)
-            token = body.token
-        })
+        cy.createToken()
+        
     })
 
     it('Create Booking', () => {
@@ -24,16 +14,16 @@ describe("Booker", () => {
             body: booking
         }).then(({ status, body }) => {
             expect(status).to.eq(200)
-            id = body.bookingid
+            Cypress.env('id', body.bookingid)
         })
     })
 
     it('Delete Booking', () => {
         cy.request({
             method: 'Delete',
-            url: `/booking/${id}`,
+            url: `/booking/${Cypress.env('id')}`,
             headers: {
-                Cookie: `token=${token}`
+                Cookie: `token=${Cypress.env('token')}`
             },
             body: booking
         }).then(({ status }) => {
